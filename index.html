@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vendor Site</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="auth">
+        <button id="sign-up-btn" class="btn btn-success">Sign up</button>
+        <br>
+        <button id="sign-in-btn" class="btn btn-danger">Sign in</button>
+        <br>
+        <label id="name-lbl">Name: <input id="name"></label>
+        <br>
+        <label id="email-lbl">Email: <input id="email" type="email"></label>
+        <br>
+        <label id="pswd-lbl">Password: <input id="password" type="password"></label>
+        <br>
+        <p id="error"></p>
+    </div>
+    <button id="change-schedule-btn" class="btn btn-primary">Change Schedule</button>
+    <div id="schedule-wrapper" class="jumbotron">
+        <h1>Schedule</h1>
+        <button id="add-block-btn" class="btn btn-success">Add block</button>
+        <div id="blocks-wrapper"></div>
+    </div>
+    <br>
+    <button class="auth btn btn-primary" id="submit-sign-up">Submit</button>
+    <button class="auth btn btn-primary" id="submit-sign-in">Submit</button>
+    <script src="jquery.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
