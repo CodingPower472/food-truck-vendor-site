@@ -1,4 +1,6 @@
 
+console.log('is working');
+
 var signUpBtn = $('#sign-up-btn');
 var signInBtn = $('#sign-in-btn');
 var nameInput = $('#name');
@@ -10,12 +12,13 @@ var submitSignInBtn = $('#submit-sign-in');
 var addBlockBtn = $('#add-block-btn');
 var changeScheduleBtn = $('#change-schedule-btn');
 var error = $('#error');
+var typeInput = $('#type');
 
 var nameLbl = $('#name-lbl');
 var emailPswdLbls = $('#email-lbl, #pswd-lbl');
 
 var numBlocks = 0;
-var baseUrl = 'http://localhost:3000/api';
+var baseUrl = 'http://54.202.150.58:3000/api';
 
 var vid;
 
@@ -41,6 +44,7 @@ emailPswdLbls.hide();
 submitSignInBtn.hide();
 submitSignUpBtn.hide();
 blocksWrapper.hide();
+$('#type-lbl').hide();
 $('#change-schedule-btn').hide();
 
 function parseTime(timeInput) {
@@ -305,6 +309,12 @@ function signUp() {
     var name = nameInput.val();
     var email = emailInput.val();
     var password = passwordInput.val();
+    var type = typeInput.val().toLowerCase().replace(' ', '');
+
+    if (type === 'a') {
+        error.text('Please select a type');
+        return;
+    }
 
     console.log('Signing up with details: ');
 
@@ -321,7 +331,8 @@ function signUp() {
                 name: name,
                 email: email,
                 pswd: password,
-                schedule: schedule
+                schedule: schedule,
+                type: type
             }),
             success: function(data, textStatus, jqXHR) {
                 if (data.code === 0) {
@@ -413,6 +424,7 @@ signUpBtn.click(function(e) {
     submitSignUpBtn.show();
     $('#schedule-wrapper').show();
     blocksWrapper.show();
+    $('#type-lbl').show();
     for (var i = 0; i < INIT_NUM_BLOCKS; i++) {
         addBlock();
     }
