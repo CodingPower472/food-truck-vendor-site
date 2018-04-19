@@ -18,7 +18,7 @@ var nameLbl = $('#name-lbl');
 var emailPswdLbls = $('#email-lbl, #pswd-lbl');
 
 var numBlocks = 0;
-var baseUrl = 'https://54.202.150.58:3000/api';
+var baseUrl = 'https://54.202.150.58:443/api';
 
 var vid;
 
