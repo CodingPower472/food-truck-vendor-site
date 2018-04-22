@@ -18,9 +18,9 @@ var nameLbl = $('#name-lbl');
 var emailPswdLbls = $('#email-lbl, #pswd-lbl');
 
 var numBlocks = 0;
-var baseUrl = 'https://54.202.150.58:443/api';
+var baseUrl = 'https://54.202.150.58:8080/api';
 
-var vid;
+var token;
 
 var INIT_NUM_BLOCKS = 1;
 
@@ -46,6 +46,32 @@ submitSignUpBtn.hide();
 blocksWrapper.hide();
 $('#type-lbl').hide();
 $('#change-schedule-btn').hide();
+
+function saveToken() {
+    localStorage.setItem('token', JSON.stringify(token))
+}
+
+function getToken() {
+    return localStorage.getItem('token');
+}
+
+token = getToken();
+
+if (token) {
+    loadInUsingToken();
+}
+
+function loadInUsingToken() {
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + '/api/vendors/info',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            token: token
+        })
+    })
+}
 
 function parseTime(timeInput) {
 
@@ -228,8 +254,11 @@ function updateSchedule() {
 
         $.ajax({
             type: 'PUT',
-            url: baseUrl + '/vendors?vid=' + vid,
-            data: JSON.stringify(schedule),
+            url: baseUrl + '/vendors',
+            data: JSON.stringify({
+                schedule: schedule,
+                token: token
+            }),
             dataType: 'json',
             contentType: 'application/json'
         });
@@ -338,7 +367,8 @@ function signUp() {
                 if (data.code === 0) {
                     console.log('Success');
                     console.log(data);
-                    vid = data._id;
+                    token = data.token;
+                    saveToken();
                     changeScheduleBtn.show();
                     $('.auth').hide();
                 } else if (data.code == 1) {
@@ -394,7 +424,7 @@ function signIn() {
                 console.log('Successfully logged in');
                 var user = data.user;
                 console.log(user);
-                vid = user['_id'];
+                token = user['_id'];
                 changeScheduleBtn.show();
                 $('.auth').hide();
                 loadInSchedule(user.schedule);
