@@ -71,6 +71,11 @@ function loadInUsingToken() {
             token: token
         })
     })
+        .then(function(info) {
+            if (schedule !== null) {
+                loadInSchedule(info.schedule);
+            }
+        });
 }
 
 function parseTime(timeInput) {
